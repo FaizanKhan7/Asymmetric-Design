@@ -1,4 +1,6 @@
-* {
+*,
+*::before,
+*::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -42,6 +44,8 @@ img {
     font-size: 1.125rem;
     padding: 0.5em;
     position: relative;
+    align-self: start;
+    justify-self: start;
 }
 
 .btn::after {
@@ -67,7 +71,7 @@ img {
     text-transform: uppercase;
     margin: 0;
     line-height: 1;
-    font-size: clamp(1rem, 10vw, 6rem);
+    font-size: clamp(1rem, 10vw, 9.4rem);
 }
 
 .location {
@@ -109,8 +113,12 @@ header {
     margin: 2em 0;
 }
 
+.social-links {
+    display: flex;
+    gap: 2em;
+}
+
 .social-link {
-    padding: 0 10px;
     font-size: 2rem;
     color: var(--clr-icons);
 }
@@ -118,4 +126,79 @@ header {
 .social-link:hover,
 .social-link:focus {
     color: var(--clr-accent);
+}
+
+@media (min-width: 800px) {
+    body {
+        margin: 0;
+    }
+    .nav-link {
+        font-size: 1.5rem;
+    }
+    .main-grid {
+        display: grid;
+        grid-template-columns: minmax(1em, 1fr) repeat(2, minmax(15rem, 35rem)) minmax(5rem, 10rem) minmax(1em, 1fr);
+        gap: 2em;
+        position: relative;
+    }
+    header {
+        grid-column: 2 / 5;
+        display: grid;
+        grid-template-columns: subgrid;
+    }
+    .nav {
+        grid-column: 2 / 5;
+    }
+    main {
+        grid-column: 2 / -1;
+        display: grid;
+        grid-template-columns: subgrid;
+        grid-auto-rows: min-content;
+        grid-auto-flow: dense;
+    }
+    main::after {
+        content: "";
+        position: absolute;
+        background-color: var(--clr-bg-light);
+        top: 0;
+        bottom: 0;
+        left: -2em;
+        right: -2em;
+        grid-column: 3 / 5;
+        z-index: -10;
+    }
+    .title {
+        grid-column: 1 / 3;
+        grid-row: 1;
+    }
+    .location,
+    .description {
+        grid-column: 1 / 2;
+    }
+    .primary-img {
+        grid-column: 2 / -1;
+        grid-row: 1 / span 4;
+        z-index: -1;
+        height: 100%;
+        max-height: 500px;
+        width: min(100%, 1000px);
+        object-fit: cover;
+    }
+    .secondary-images {
+        grid-column: 2 / 4;
+        margin-top: 4em;
+    }
+    footer {
+        grid-column: 2 / 3;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    main::after {
+        grid-column: 3 / 4;
+    }
+    .nav,
+    .secondary-images {
+        grid-column: 2 / 3;
+    }
 }
